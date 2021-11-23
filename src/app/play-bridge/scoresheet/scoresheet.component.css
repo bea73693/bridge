@@ -1,0 +1,13 @@
+.v-bar {
+    width: .5em;
+    background-color: black;
+}
+
+.h-bar {
+    height: 1em;
+    background-color: black;
+}
+
+.h-x2 {
+    height: 10em;
+}
