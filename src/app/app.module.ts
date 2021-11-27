@@ -6,8 +6,13 @@ import { AppComponent } from './app.component';
 import { PlayBridgeComponent } from './play-bridge/play-bridge.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { ScoresheetComponent } from './play-bridge/scoresheet/scoresheet.component';
-import { BidComponent } from './play-bridge/bid/bid.component';
+import { BidsComponent } from './play-bridge/bids/bids.component';
 import { ConstantsService } from './play-bridge/constants.service';
+import { ReactiveFormsModule } from '@angular/forms';
+import { GameLineComponent } from './play-bridge/scoresheet/game-line/game-line.component';
+import { CurrentBidComponent } from './play-bridge/bids/current-bid/current-bid.component';
+import { BidHistoryComponent } from './play-bridge/bids/bid-history/bid-history.component';
+import { BridgeGameService } from './play-bridge/bridge-game.service';
 
 @NgModule({
   declarations: [
@@ -15,13 +20,17 @@ import { ConstantsService } from './play-bridge/constants.service';
     PlayBridgeComponent,
     LeaderboardComponent,
     ScoresheetComponent,
-    BidComponent
+    BidsComponent,
+    GameLineComponent,
+    CurrentBidComponent,
+    BidHistoryComponent
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [ConstantsService],
+  providers: [ConstantsService, BridgeGameService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

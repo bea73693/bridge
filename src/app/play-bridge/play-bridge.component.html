@@ -1,73 +1,50 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-8">
-            <form class="d-flex justify-content-start mt-5">
-                <select id="teamBidding" class="form-select form-select-sm w-25" aria-label=".form-select-sm">
-                    <option selected disabled>Select Team</option>
-                    <option value="W">We</option>
-                    <option value="T">They</option>
-                </select>
-                <select id="teamBidding" class="form-select form-select-sm w-25" aria-label=".form-select-sm">
-                    <option selected disabled>Tricks</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                </select>
-                <select id="suit" class="w-25">
-                    <option selected disabled>Suit</option>
-                    <option value="C">&clubs;</option>
-                    <option value="D">&diamondsuit;</option>
-                    <option value="H">&hearts;</option>
-                    <option value="S">&spades;</option>
-                    <option value="N">No trump</option>
-                </select>
-                <select id="doubled" class="form-select form-select-sm w-25" aria-label=".form-select-sm">
-                    <option value="1">Not doubled</option>
-                    <option value="2">Doubled</option>
-                    <option value="4">Redoubled</option>
-                </select>
-                
-                <!--<div id="endRoundDiv" class="hide">
-                    <select id="tricksMade">
-                        <option value="-8">-8</option>
-                        <option value="-7">-7</option>
-                        <option value="-6">-6</option>
-                        <option value="-5">-5</option>
-                        <option value="-4">-4</option>
-                        <option value="-3">-3</option>
-                        <option value="-2">-2</option>
-                        <option value="-1">-1</option>
-                        <option value="0" selected>=</option>
-                        <option value="1">+1</option>
-                        <option value="2">+2</option>
-                        <option value="3">+3</option>
-                        <option value="4">+4</option>
-                        <option value="5">+5</option>
+            <form [formGroup]="makeBidForm" (ngSubmit)="makeBid()" class="d-flex justify-content-start mt-5">
+                    <select id="teamBidding" formControlName="teamBidding" class="form-select form-select-sm w-25" aria-label=".form-select-sm">
+                        <option [ngValue]="null" hidden>Team</option>
+                        <option *ngFor="let team of teams" [value]="team.id">{{ team.value }}</option>
                     </select>
-                    <input type="button" value="End round" id="endRound" />
-                </div>-->
-            </form>
-            <input class="w-100 mt-3 p-2" type="button" id="makeBid" value="Make bid" />
+                    <select id="contractTricks" formControlName="contractTricks" class="form-select form-select-sm w-25" aria-label=".form-select-sm">
+                        <option [ngValue]="null" hidden>Tricks</option>
+                        <option *ngFor="let possibbleTricks of [].constructor(possibleContractTricks); let i = index" [ngValue]="i+1">{{ i+1 }}</option>
+                    </select>
+                    <select id="suit" formControlName="suit" class="w-25">
+                        <option [ngValue]="null" hidden>Suit</option>
+                        <option *ngFor="let suit of suits" [ngValue]="suit.id">{{ suit.value }}</option>
+                    </select>
+                    <select id="doubleValue" formControlName="doubleValue" class="form-select form-select-sm w-25" aria-label=".form-select-sm">
+                        <option *ngFor="let multiplier of doubleValue; let i = index" [ngValue]="multiplier.id">{{ multiplier.value }}</option>
+                    </select>
+                    
+                    <!--<div id="endRoundDiv" class="hide">
+                        <select id="tricksMade">
+                            <option value="-8">-8</option>
+                            <option value="-7">-7</option>
+                            <option value="-6">-6</option>
+                            <option value="-5">-5</option>
+                            <option value="-4">-4</option>
+                            <option value="-3">-3</option>
+                            <option value="-2">-2</option>
+                            <option value="-1">-1</option>
+                            <option value="0" selected>=</option>
+                            <option value="1">+1</option>
+                            <option value="2">+2</option>
+                            <option value="3">+3</option>
+                            <option value="4">+4</option>
+                            <option value="5">+5</option>
+                        </select>
+                        <input type="button" value="End round" id="endRound" />
+                    </div>-->
+                </form>
+            <button class="w-100 mt-3 p-2 border-rounded" (click)="makeBid()">Make bid</button>
             <div class="mt-5">
                 <app-scoresheet></app-scoresheet>
             </div>
         </div>
         <div class="col-sm-4 mt-5 border rounded">
-            <div class="d-flex justify-content-center">
-                <h4>Bid History</h4>
-            </div>
-            <app-bid></app-bid>
-            <div class="d-flex justify-content-center">
-                <h4>Current Bid</h4>
-            </div>
-            <app-bid></app-bid>
-        </div>
-    </div>
-    <div class="row">
-        
+            <app-bids></app-bids>
+        </div>  
     </div>
 </div>
