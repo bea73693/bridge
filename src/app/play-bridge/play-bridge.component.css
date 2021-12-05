@@ -1,3 +1,16 @@
 option {
     font-size: 1.2em;
 }
+
+.img-sm {
+    height: 40px;
+    width: 40px;
+}
+
+.hf-60 {
+    height: 60px;
+}
+
+.t-30 {
+    top: 30%;
+}

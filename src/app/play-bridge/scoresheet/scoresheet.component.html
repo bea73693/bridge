@@ -1,20 +1,34 @@
 <div class="row">
-    <div class="col-sm">
-        <div class="d-flex justify-content-center">We</div>
+    <div class="col-sm d-flex justify-content-center">
+        <h4>We</h4>
     </div>
     <div class="v-bar rounded-top"></div>
-    <div class="col-sm">
-        <div class="d-flex justify-content-center">They</div>
+    <div class="col-sm d-flex justify-content-center">
+        <h4>They</h4>
     </div>
 </div>
 <div class="h-bar rounded"></div>
 <div class="row">
-    <div class="col-sm">
-        <div class="d-flex justify-content-center h-x2">We score above</div>
+    <div class="col-sm h-x2">
+        <div class="row h-100">
+            <div class="stack-bottom h-100">
+                <div class="d-flex justify-content-center" *ngFor="let score of teamWe.scoreAbove.slice().reverse()">
+                    {{ score }}
+                </div>
+            </div>
+        </div>
     </div>
     <div class="v-bar"></div>
-    <div class="col-sm">
-        <div class="d-flex justify-content-center h-x2">They score above</div>
+    <div class="col-sm h-x2">
+        <div class="row h-100">
+            <div class="stack-bottom h-100">
+                <div class="d-flex justify-content-center" *ngFor="let score of teamThey.scoreAbove.slice().reverse()">
+                    {{ score }}
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-<app-game-line></app-game-line>
+<div *ngFor="let game of [].constructor(gameNumber); let i = index">
+    <app-game-line [gameNumber]="i"></app-game-line>
+</div>

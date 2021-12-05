@@ -1,50 +1,105 @@
-<div class="container">
+<div class="container pb-5">
     <div class="row">
         <div class="col-sm-8">
-            <form [formGroup]="makeBidForm" (ngSubmit)="makeBid()" class="d-flex justify-content-start mt-5">
-                    <select id="teamBidding" formControlName="teamBidding" class="form-select form-select-sm w-25" aria-label=".form-select-sm">
+            <form [formGroup]="submitBidForm" (ngSubmit)="makeBid()" class="d-flex mt-5">
+                    <select id="teamBidding" formControlName="teamBidding" required class="form-select form-select-sm w-25" aria-label=".form-select-sm">
                         <option [ngValue]="null" hidden>Team</option>
                         <option *ngFor="let team of teams" [value]="team.id">{{ team.value }}</option>
                     </select>
-                    <select id="contractTricks" formControlName="contractTricks" class="form-select form-select-sm w-25" aria-label=".form-select-sm">
+                    <select id="contractTricks" formControlName="contractTricks" required class="form-select form-select-sm w-25" aria-label=".form-select-sm">
                         <option [ngValue]="null" hidden>Tricks</option>
-                        <option *ngFor="let possibbleTricks of [].constructor(possibleContractTricks); let i = index" [ngValue]="i+1">{{ i+1 }}</option>
+                        <option *ngFor="let contractTricks of possibleContractTricks;" [ngValue]="contractTricks">{{ contractTricks }}</option>
                     </select>
-                    <select id="suit" formControlName="suit" class="w-25">
+                    <select id="suit" formControlName="suit" required class="form-select form-select-sm w-25">
                         <option [ngValue]="null" hidden>Suit</option>
                         <option *ngFor="let suit of suits" [ngValue]="suit.id">{{ suit.value }}</option>
                     </select>
-                    <select id="doubleValue" formControlName="doubleValue" class="form-select form-select-sm w-25" aria-label=".form-select-sm">
-                        <option *ngFor="let multiplier of doubleValue; let i = index" [ngValue]="multiplier.id">{{ multiplier.value }}</option>
+                    <select id="doubleValue" formControlName="doubleValue" required class="form-select form-select-sm w-25" aria-label=".form-select-sm">
+                        <option *ngFor="let multiplier of doubleValue" [ngValue]="multiplier.id">{{ multiplier.value }}</option>
                     </select>
-                    
-                    <!--<div id="endRoundDiv" class="hide">
-                        <select id="tricksMade">
-                            <option value="-8">-8</option>
-                            <option value="-7">-7</option>
-                            <option value="-6">-6</option>
-                            <option value="-5">-5</option>
-                            <option value="-4">-4</option>
-                            <option value="-3">-3</option>
-                            <option value="-2">-2</option>
-                            <option value="-1">-1</option>
-                            <option value="0" selected>=</option>
-                            <option value="1">+1</option>
-                            <option value="2">+2</option>
-                            <option value="3">+3</option>
-                            <option value="4">+4</option>
-                            <option value="5">+5</option>
-                        </select>
-                        <input type="button" value="End round" id="endRound" />
-                    </div>-->
                 </form>
-            <button class="w-100 mt-3 p-2 border-rounded" (click)="makeBid()">Make bid</button>
+                <button *ngIf="!currentBid.active; else showBid" class="w-100 btn btn-outline-primary mt-4 p-2 border-rounded hf-60" [disabled]="submitBidForm.invalid" (click)="makeBid()">Make bid</button>
+                <ng-template #showBid>
+                    <button class="container btn btn-primary mt-4 hf-60" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                        <div class="row">
+                            <div class="col-sm">
+                                <h6>{{ currentBid.teamBidding }}</h6>
+                            </div>
+                            <div class="col-sm">
+                                <h6>{{ currentBid.contractTricks }}</h6>
+                            </div>
+                            <div class="col-sm">
+                                <img *ngIf="showSuitImage; else showNT" class="img-responsive img-sm" src="/assets/img/{{ currentBid.suit }}.png" />
+                                <ng-template #showNT>
+                                    <h6>NT</h6>
+                                </ng-template>
+                            </div>
+                            <div class="col-sm">
+                                <h6>{{ showDoubleValue }}</h6>
+                            </div>
+                        </div>
+                    </button>
+                </ng-template>
             <div class="mt-5">
                 <app-scoresheet></app-scoresheet>
             </div>
         </div>
         <div class="col-sm-4 mt-5 border rounded">
-            <app-bids></app-bids>
+            <app-bid-history></app-bid-history>
         </div>  
+    </div>
+</div>
+
+<!-- End bid modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog t-30" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Select Tricks Made</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <form [formGroup]="finishRoundForm">
+                        <div class="row">
+                            <div class="col-sm">
+                                <select id="tricksMade" formControlName="tricksMade" required class="form-select form-select-sm w-100 h-100" aria-label=".form-select-sm">
+                                    <option *ngFor="let tricks of tricksMade;" [ngValue]="tricks.id">{{ tricks.value }}</option>
+                                </select>
+                            </div>
+                            <div class="col-sm">
+                                <button *ngIf="!showAddHonors; else showCancel" class="btn btn-outline-primary w-100" (click)="showAddHonors = true">Add Honors</button>
+                            </div>
+                            <ng-template #showCancel>
+                                <button class="btn btn-danger w-100" (click)="cancelHonors()">Cancel Honors</button>
+                            </ng-template>
+                            <div *ngIf="showAddHonors">
+                                <h6 class="mt-3">Add Honors</h6>
+                                <form [formGroup]="honorsForm">
+                                    <div class="row">
+                                        <div class="col-sm">
+                                            <select id="team" formControlName="team" required class="form-select form-select-sm w-100" aria-label=".form-select-sm">
+                                                <option [ngValue]="null" hidden>Team</option>
+                                                <option *ngFor="let team of teams" [value]="team.id">{{ team.value }}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm">
+                                            <select id="honors" formControlName="honorsPoints" required class="form-select form-select-sm w-100" aria-label=".form-select-sm">
+                                                <option [ngValue]="null" hidden>Select Honors</option>
+                                                <option *ngFor="let honor of honors;" [ngValue]="honor.id">{{ honor.value }}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="endRound()" [disabled]="showAddHonors && honorsForm.invalid">Finish Round</button>
+            </div>
+        </div>
     </div>
 </div>

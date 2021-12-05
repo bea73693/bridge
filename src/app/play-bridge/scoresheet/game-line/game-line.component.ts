@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { BridgeGameService } from '../../bridge-game.service';
+import { Team } from '../../Team';
 
 @Component({
   selector: 'app-game-line',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GameLineComponent implements OnInit {
 
-  constructor() { }
+  teamWe = new Team();
+  teamThey = new Team();
+
+  @Input()
+  gameNumber!: number;
+
+  constructor(private bridgeGame: BridgeGameService) { }
 
   ngOnInit(): void {
+    console.log("GAME NUMBER FROM INPUT: " + this.gameNumber);
+    this.bridgeGame.teamWeObservable.subscribe((teamWe: Team) => this.teamWe = teamWe);
+    this.bridgeGame.teamTheyObservable.subscribe((teamThey: Team) => this.teamThey = teamThey);
   }
-
 }
