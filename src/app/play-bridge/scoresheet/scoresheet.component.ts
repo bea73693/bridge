@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BridgeGameService } from '../bridge-game.service';
-import { Team } from '../Team';
+import { Team } from '../bridge-helper-classes/Team';
 
 @Component({
   selector: 'app-scoresheet',
