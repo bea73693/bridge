@@ -1,14 +1,24 @@
 <div class="h-bar rounded"></div>
 <div class="row h-100">
-    <div class="col-sm h-x2">
-        <div class="d-flex justify-content-center" *ngFor="let score of teamWe.rubberScoresBelow[gameNumber]">
-            {{ score }}
+    <div class="col-sm" [ngClass]="activeGameIndex === game && !rubberOver? 'h-x2': 'h-auto'">
+        <div class="d-flex justify-content-center" *ngFor="let score of teamWe.rubberScoresBelow[game]">
+            <span class="score-number">{{ score }}</span>
         </div>
+        <ng-container *ngIf="rubberOver && activeGameIndex === game">
+            <div class="d-flex justify-content-center h-auto text-danger">
+                <span class="score-number mb-4">{{ teamWe.totalPoints }}</span>
+            </div>
+        </ng-container>
     </div>
     <div class="v-bar"></div>
-    <div class="col-sm h-x2">
-        <div class="d-flex justify-content-center" *ngFor="let score of teamThey.rubberScoresBelow[gameNumber]">
-            {{ score }}
+    <div class="col-sm" [ngClass]="activeGameIndex === game && !rubberOver? 'h-x2': 'h-auto'">
+        <div class="d-flex justify-content-center" *ngFor="let score of teamThey.rubberScoresBelow[game]">
+            <span class="score-number">{{ score }}</span>
         </div>
+        <ng-container *ngIf="rubberOver && activeGameIndex === game">
+            <div class="d-flex justify-content-center text-danger">
+                <span class="score-number mb-4">{{ teamThey.totalPoints }}</span>
+            </div>
+        </ng-container>
     </div>
 </div>

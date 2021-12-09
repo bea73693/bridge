@@ -80,6 +80,7 @@ export class PlayBridgeComponent implements OnInit {
   showSuitImage: boolean = false;
   showDoubleValue: string = '';
   showAddHonors: boolean = false;
+  rubberOver: boolean = false;
   
   constructor(
     private bridgeGame: BridgeGameService
@@ -87,6 +88,7 @@ export class PlayBridgeComponent implements OnInit {
 
   ngOnInit(): void {
     this.bridgeGame.currentBidObservable.subscribe((currentBid: Bid) => this.currentBid = currentBid);
+    this.bridgeGame.rubberOverObservable.subscribe((rubberOver: boolean) => this.rubberOver = rubberOver);
   }
 
   makeBid() {
@@ -110,5 +112,9 @@ export class PlayBridgeComponent implements OnInit {
     this.honorsForm.touched? this.bridgeGame.endRound(tricksMade, this.honorsForm.value): this.bridgeGame.endRound(this.finishRoundForm.value.tricksMade);
     this.finishRoundForm.reset(this.initialFinishRoundValues);
     this.cancelHonors();
+  }
+
+  resetRubber() {
+    this.bridgeGame.resetRubber();
   }
 }

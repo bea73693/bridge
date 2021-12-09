@@ -5,14 +5,14 @@ export class Bid {
   private _active: boolean; 
   private _bidHasDoubledMultiplier: boolean;
   private _isSmallSlamBid: boolean;
-  private _isGrandSlamBid: boolean;  
+  private _isGrandSlamBid: boolean;
 
-  constructor(private _teamBidding: string = 'default', private _contractTricks: number = -1, private _suit: string = 'default', private _doubleValue: number = -1){
+  constructor(private _teamBidding: string = 'default', private _contractTricks: number = -1, private _suit: string = 'default', private _doubleValue: number = -1) {
     this._tricksMade = -1;
     this._active = false;
     this._bidHasDoubledMultiplier = _doubleValue > 1;
-    this._isSmallSlamBid = _contractTricks == 6;
-    this._isGrandSlamBid = _contractTricks == 7;
+    this._isSmallSlamBid = _contractTricks == Constants.SMALL_SLAM_BID_TRICKS;
+    this._isGrandSlamBid = _contractTricks == Constants.GRAND_SLAM_BID_TRICKS;
   }
 
   get teamBidding() {

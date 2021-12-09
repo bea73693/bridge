@@ -13,12 +13,17 @@ export class GameLineComponent implements OnInit {
   teamThey = new Team();
 
   @Input()
-  gameNumber!: number;
+  game!: number;
+
+  @Input()
+  activeGameIndex!: number;
+
+  @Input()
+  rubberOver!: boolean;
 
   constructor(private bridgeGame: BridgeGameService) { }
 
   ngOnInit(): void {
-    console.log("GAME NUMBER FROM INPUT: " + this.gameNumber);
     this.bridgeGame.teamWeObservable.subscribe((teamWe: Team) => this.teamWe = teamWe);
     this.bridgeGame.teamTheyObservable.subscribe((teamThey: Team) => this.teamThey = teamThey);
   }

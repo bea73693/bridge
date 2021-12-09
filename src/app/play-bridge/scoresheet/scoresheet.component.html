@@ -13,7 +13,7 @@
         <div class="row h-100">
             <div class="stack-bottom h-100">
                 <div class="d-flex justify-content-center" *ngFor="let score of teamWe.scoreAbove.slice().reverse()">
-                    {{ score }}
+                    <span class="score-number">{{ score }}</span>
                 </div>
             </div>
         </div>
@@ -23,12 +23,12 @@
         <div class="row h-100">
             <div class="stack-bottom h-100">
                 <div class="d-flex justify-content-center" *ngFor="let score of teamThey.scoreAbove.slice().reverse()">
-                    {{ score }}
+                    <span class="score-number">{{ score }}</span>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <div *ngFor="let game of [].constructor(gameNumber); let i = index">
-    <app-game-line [gameNumber]="i"></app-game-line>
+    <app-game-line [game]="i" [activeGameIndex]="gameNumber-1" [rubberOver]="rubberOver"></app-game-line>
 </div>

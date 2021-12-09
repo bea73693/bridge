@@ -11,10 +11,16 @@
 .h-x2 {
     min-height: 160px;
 }
+
 .stack-bottom {
     display: flex;
     justify-content: flex-end;
     flex-direction: column;
+}
+
+.score-number {
+    font-size: calc(12px + .75vw);
+    font-weight: bold;
 }
 
 .black {

@@ -18,27 +18,32 @@
                         <option *ngFor="let multiplier of doubleValue" [ngValue]="multiplier.id">{{ multiplier.value }}</option>
                     </select>
                 </form>
-                <button *ngIf="!currentBid.active; else showBid" class="w-100 btn btn-outline-primary mt-4 p-2 border-rounded hf-60" [disabled]="submitBidForm.invalid" (click)="makeBid()">Make bid</button>
+                <button *ngIf="!currentBid.active && !rubberOver; else showBid" class="w-100 btn btn-outline-primary mt-4 p-2 border-rounded hf-60" [disabled]="submitBidForm.invalid" (click)="makeBid()">Make bid</button>
                 <ng-template #showBid>
-                    <button class="container btn btn-primary mt-4 hf-60" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
-                        <div class="row">
-                            <div class="col-sm">
-                                <h6>{{ currentBid.teamBidding }}</h6>
+                    <ng-container *ngIf="!rubberOver; else showResetRubber">
+                        <button class="container btn btn-primary mt-4 hf-60" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <h6>{{ currentBid.teamBidding }}</h6>
+                                </div>
+                                <div class="col-sm">
+                                    <h6>{{ currentBid.contractTricks }}</h6>
+                                </div>
+                                <div class="col-sm">
+                                    <img *ngIf="showSuitImage; else showNT" class="img-responsive img-sm" src="/assets/img/{{ currentBid.suit }}.png" />
+                                    <ng-template #showNT>
+                                        <h6>NT</h6>
+                                    </ng-template>
+                                </div>
+                                <div class="col-sm">
+                                    <h6>{{ showDoubleValue }}</h6>
+                                </div>
                             </div>
-                            <div class="col-sm">
-                                <h6>{{ currentBid.contractTricks }}</h6>
-                            </div>
-                            <div class="col-sm">
-                                <img *ngIf="showSuitImage; else showNT" class="img-responsive img-sm" src="/assets/img/{{ currentBid.suit }}.png" />
-                                <ng-template #showNT>
-                                    <h6>NT</h6>
-                                </ng-template>
-                            </div>
-                            <div class="col-sm">
-                                <h6>{{ showDoubleValue }}</h6>
-                            </div>
-                        </div>
-                    </button>
+                        </button>
+                    </ng-container>
+                </ng-template>
+                <ng-template #showResetRubber>
+                    <button class="w-100 btn btn-outline-danger mt-4 p-2 border-rounded hf-60" (click)="resetRubber()">Reset Rubber</button>
                 </ng-template>
             <div class="mt-5">
                 <app-scoresheet></app-scoresheet>

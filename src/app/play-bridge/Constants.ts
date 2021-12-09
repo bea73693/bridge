@@ -19,21 +19,24 @@ export class Constants {
 
 
   static readonly POINTS_FOR_GAME: number = 100;
-  static readonly MAX_UNDERTRICK_BASE_PENTALTY = 300;
+  static readonly MAX_UNDERTRICK_BASE_PENTALTY: number = 300;
   
-  static readonly PENALTY_LEVEL_TWO_SET_INDEX = 1;
-  static readonly PENALTY_LEVEL_TWO_MULTIPLIER = 2;
-  static readonly PENALTY_LEVEL_TRHEE_SET_INDEX = 3;
-  static readonly PENALTY_LEVEL_TRHEE_MULTIPLIER = 3;
+  static readonly PENALTY_LEVEL_TWO_SET_INDEX: number = 1;
+  static readonly PENALTY_LEVEL_TWO_MULTIPLIER: number = 2;
+  static readonly PENALTY_LEVEL_TRHEE_SET_INDEX: number = 3;
+  static readonly PENALTY_LEVEL_TRHEE_MULTIPLIER: number = 3;
 
-  static readonly BASE_SMALL_SLAM_BONUS = 500;
-  static readonly BASE_GRAND_SLAM_BONUS = 1000;
+  static readonly BASE_SMALL_SLAM_BONUS: number = 500;
+  static readonly SMALL_SLAM_BID_TRICKS: number = 6;
+  static readonly GRAND_SLAM_BID_TRICKS: number = 7;
+  static readonly BASE_GRAND_SLAM_BONUS: number = 1000;
 
-  static readonly SMALL_HONORS_BONUS = 100;
-  static readonly LARGE_HONORS_BONUS = 150;
+  static readonly SMALL_HONORS_BONUS: number = 100;
+  static readonly LARGE_HONORS_BONUS: number = 150;
 
-  static readonly SLOW_RUBBER_BONUS = 500;
-  static readonly FAST_RUBBER_BONUS = 700;
+  static readonly SLOW_RUBBER_BONUS: number = 500;
+  static readonly FAST_RUBBER_BONUS: number = 700;
+  static readonly GAMES_NEEDED_TO_WIN_RUBBER: number = 2;
 
 
   constructor() { }
