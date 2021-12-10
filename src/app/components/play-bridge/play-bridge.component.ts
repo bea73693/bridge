@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Constants } from './bridge-helper-classes/Constants';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { BridgeGameService } from './bridge-game.service';
+import { BridgeGameService } from '../../services/bridge-game.service';
 import { Bid } from './bridge-helper-classes/Bid';
 
 

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Bid } from './bridge-helper-classes/Bid';
+import { Bid } from '../components/play-bridge/bridge-helper-classes/Bid';
 import { BehaviorSubject } from 'rxjs';
-import { Team } from './bridge-helper-classes/Team';
-import { Constants } from './bridge-helper-classes/Constants';
+import { Team } from '../components/play-bridge/bridge-helper-classes/Team';
+import { Constants } from '../components/play-bridge/bridge-helper-classes/Constants';
 
 @Injectable({
   providedIn: 'root'

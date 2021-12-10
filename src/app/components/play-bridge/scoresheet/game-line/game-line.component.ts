@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { BridgeGameService } from '../../bridge-game.service';
+import { BridgeGameService } from '../../../../services/bridge-game.service';
 import { Team } from '../../bridge-helper-classes/Team';
 
 @Component({
